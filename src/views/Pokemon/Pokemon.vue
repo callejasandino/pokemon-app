@@ -8,8 +8,12 @@
          </div>
       </div>
 
-      <div class="max-w-full rounded overflow-hidden shadow-lg" v-if="pokemonResult">
-         <div v-if="pokemonResult" class="mb-10 bg-gray-800 text-white p-10">
+      <div v-if="isLoading" class="flex justify-center items-center mb-10">
+         <div class="loader"></div>
+      </div>
+
+      <div class="max-w-full rounded overflow-hidden shadow-lg" v-if="pokemonResult && !isLoading">
+         <div class="mb-10 bg-gray-800 text-white p-10">
             <p class="text-4xl text-center capitalize font-bold mb-10">{{ pokemonResult.name }}</p>
 
             <div class="flex justify-evenly">
@@ -31,10 +35,6 @@
                   </audio>
                </div>
             </div>
-         </div>
-
-         <div v-else>
-            <p class="text-2xl text-center capitalize">Data will be presented here</p>
          </div>
 
          <div class="flex justify-around">
@@ -83,84 +83,6 @@
    </div>
 </template>
 
-<script setup>
-import { reactive, ref, watch } from 'vue'
-import { usePokemonStore } from '../../stores/pokemon'
-import debounce from 'lodash.debounce'
-import Moves from './Moves/Moves.vue'
+<script src="./Pokemon.js"></script>
 
-const pokemonName = ref('')
-const pokemonResult = ref(null)
-const pokemonSprites = reactive({
-   back_default: '',
-   back_shiny: '',
-   front_default: '',
-   front_shiny: ''
-})
-const stats = ref([])
-const gameIndices = ref([])
-const moves = ref([])
-
-const pokemonStore = usePokemonStore()
-
-const fetchPokemon = async (name) => {
-   await pokemonStore.fetchPokemon(name)
-   const fetchedPokemon = pokemonStore.getPokemon
-
-   pokemonResult.value = fetchedPokemon
-   updateSprites(fetchedPokemon.sprites)
-   stats.value = fetchedPokemon.stats
-   moves.value = fetchedPokemon.moves
-   gameIndices.value = fetchedPokemon.game_indices
-
-   console.log(fetchedPokemon)
-}
-
-const updateSprites = (sprites) => {
-   pokemonSprites.back_default = sprites.back_default
-   pokemonSprites.back_shiny = sprites.back_shiny
-   pokemonSprites.front_default = sprites.front_default
-   pokemonSprites.front_shiny = sprites.front_shiny
-}
-
-const bgColorChanger = (colorName) => {
-   const colors = {
-      red: '#ff0000',
-      blue: '#0000ff',
-      yellow: '#ffff00',
-      gold: '#ffd700',
-      silver: '#c0c0c0',
-      crystal: '#d8d8d8',
-      ruby: '#e0115f',
-      sapphire: '#0f52ba',
-      emerald: '#50c878',
-      firered: '#ff4000',
-      leafgreen: '#00ff00',
-      diamond: '#b9f2ff',
-      pearl: '#ffdde6',
-      platinum: '#e5e4e2',
-      heartgold: '#ffd700',
-      soulsilver: '#c0c0c0',
-      black: '#000000',
-      white: '#ffffff',
-      'black-2': '#333333',
-      'white-2': '#cccccc'
-   }
-
-   return colors[colorName] || '#ffffff'
-}
-
-const debouncedSearch = debounce(() => {
-   console.log('Searching for:', pokemonName.value)
-
-   if (pokemonName.value) {
-      fetchPokemon(pokemonName.value)
-   } else {
-      pokemonResult.value = null
-   }
-}, 2000)
-
-watch(pokemonName, debouncedSearch)
-</script>
-
-<style lang="scss" scoped></style>
+<style src="./Pokemon.css" scoped></style>

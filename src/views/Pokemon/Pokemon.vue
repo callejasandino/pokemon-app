@@ -37,7 +37,40 @@
             </div>
          </div>
 
-         <div class="flex justify-around">
+         <div class="bg-white">
+            <div class="mx-auto max-w-2xl px-4 py-10 sm:px-6 py-10 lg:max-w-7xl lg:px-8">
+               <div>
+                  <h2 class="text-lg font-medium text-gray-900 capitalize text-center">{{ pokemonResult.name }} Shiny / Normal</h2>
+               </div>
+               <div class="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
+                  <div class="group relative">
+                     <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-100">
+                        <img :src="pokemonSprites.front_shiny" class="w-52 h-52 mx-auto object-cover object-center" />
+                     </div>
+                  </div>
+
+                  <div class="group relative">
+                     <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-100">
+                        <img :src="pokemonSprites.back_shiny" class="w-52 h-52 mx-auto object-cover object-center" />
+                     </div>
+                  </div>
+
+                  <div class="group relative">
+                     <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-100">
+                        <img :src="pokemonSprites.front_default" class="w-52 h-52 mx-auto object-cover object-center" />
+                     </div>
+                  </div>
+
+                  <div class="group relative">
+                     <div class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-100">
+                        <img :src="pokemonSprites.back_default" class="w-52 h-52 mx-auto object-cover object-center" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- <div class="flex justify-around">
             <div>
                <p class="text-2xl text-center font-medium">Shiny Type</p>
                <div class="flex justify-between">
@@ -53,7 +86,7 @@
                   <img class="w-80 h-80" :src="pokemonSprites.front_default" alt="" />
                </div>
             </div>
-         </div>
+         </div> -->
 
          <div class="px-6 py-4">
             <div>

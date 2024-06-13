@@ -92,8 +92,6 @@ watch(
    (newValue) => {
       if (newValue !== null) {
          isModalOpen.value = true
-         console.log(isModalOpen.value)
-         console.log(props.information)
       } else {
          isModalOpen.value = false
       }
